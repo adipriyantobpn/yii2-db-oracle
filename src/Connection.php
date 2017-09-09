@@ -7,6 +7,7 @@
  */
 
 namespace adipriyantobpn\db\oracle;
+use yii\base\Event;
 use yii\db\Exception;
 
 /**
@@ -14,6 +15,7 @@ use yii\db\Exception;
  *
  * In this class, by default, it will configure:
  * - DSN, if not configured before, by using specified host, port, and SID properties.
+ * - Oracle NLS_DATE_FORMAT (after opening database connection), by using dateFormat property.
  *
  * @package adipriyantobpn\db\oracle
  */
@@ -38,6 +40,12 @@ class Connection extends \yii\db\Connection
      * If DSN is not configured, this properties is mandatory.
      */
     public $sid;
+
+    /**
+     * @var string The date format to be used when set/get datetime for Oracle DB.
+     * Defaults to `YYYY-MM-DD HH24:MI:SS`.
+     */
+    public $dateFormat = 'YYYY-MM-DD HH24:MI:SS';
 
     /**
      * Initializes the object.
@@ -71,6 +79,16 @@ class Connection extends \yii\db\Connection
             }
             //-- configure DSN
             $this->dsn = "oci:dbname=(DESCRIPTION=(ADDRESS_LIST=(ADDRESS=(PROTOCOL=TCP)(HOST={$this->host})(PORT={$this->port})))(CONNECT_DATA=(SID={$this->sid})))";
+
+            //-- configure date format
+            //-- to see Oracle default date format, please execute:
+            //--    `SELECT * FROM NLS_SESSION_PARAMETERS WHERE parameter = 'NLS_DATE_FORMAT'`
+            $this->on(self::EVENT_AFTER_OPEN, function($event) {
+                /* @var $event Event */
+                /* @var $sender Connection */
+                $sender = $event->sender;
+                $sender->createCommand("ALTER SESSION SET NLS_DATE_FORMAT='{$this->dateFormat}'")->execute();
+            });
         }
     }
 
