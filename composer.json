@@ -10,12 +10,13 @@
             "email": "adipriyanto.bpn@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
     "require": {
         "yiisoft/yii2": "*"
     },
     "autoload": {
         "psr-4": {
-            "adipriyantobpn\\db\\oracle\\": ""
+            "adipriyantobpn\\db\\oracle\\": "src"
         }
     }
 }
