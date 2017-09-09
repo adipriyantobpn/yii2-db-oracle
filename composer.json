@@ -1,0 +1,21 @@
+{
+    "name": "adipriyantobpn/yii2-db-oracle",
+    "description": "Base library and foundation components for Oracle Database",
+    "type": "library",
+    "keywords": ["yii2","library","db","oracle"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Adi Priyanto",
+            "email": "adipriyanto.bpn@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "adipriyantobpn\\db\\oracle\\": ""
+        }
+    }
+}
