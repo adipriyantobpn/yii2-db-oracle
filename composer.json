@@ -12,6 +12,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "ext-pdo_oci": "*",
         "yiisoft/yii2": "*"
     },
     "autoload": {
